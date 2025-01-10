@@ -61,20 +61,41 @@ function moviesAverageByCategory(array, genre) {
       count++
     }
   }
+  console.log("EXERCICE 6 ->", Math.round(result / count*100)/100);
   return Math.round(result / count*100)/100
 }
 
 // Exercise 7: Modify the duration of movies to minutes
 function hoursToMinutes(array) {
-  let result = array.map( item => ({title: item.title, duration: item.duration }))
-  let res2 = result.forEach(item => { item.duration
-    
-  });
-  return result
-}
-
+  let convert = /(\d+)h\s*(\d*)min?/
+  let convert2 = /(\d+)h/
+               
+  let newArr =  array.map( item => { 
+    let newItem = { ...item }
+    if (typeof newItem.duration === 'string') {
+    let matches = newItem.duration.match(convert)
+        if (matches) {
+          let hours = parseInt(matches[1], 10)
+          let minutes = matches[2] ? parseInt(matches[2], 10) : 0
+          newItem.duration = (hours * 60) + minutes
+      } else {
+        matches = newItem.duration.match(convert2)
+          if(matches) {
+            hours = parseInt(matches[1], 10)
+            newItem.duration =  (hours * 60)
+          }
+      } 
+     } else {
+      newItem.duration = 0
+      }
+      return newItem
+  })
+    return newArr    
+  }
+  
 // Exercise 8: Get the best film of a year
 function bestFilmOfYear() {
+
   
 }
 
